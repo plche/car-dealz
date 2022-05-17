@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Car Dealz</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="container-fluid row">
+                <div class="col-8">
+                    <p class="fs-1">{{session['nombre']}} {{session['apellido']}}'s Purchases</p>
+                </div>
+                <div class="col-4">
+                    <p class="text-end">
+                        <a href="/dashboard" class="btn btn-primary mx-4">Dashboard</a>
+                        <a href="/logout" class="btn btn-secondary mx-2 my-2">Logout</a>
+                    </p>
+                </div>
+            </div>
+            <div class="container-fluid row">
+                {% with messages = get_flashed_messages(category_filter=["addsubsnew"]) %}
+                    {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Make</th>
+                        <th scope="col">Model</th>
+                        <th scope="col">Year</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for carro in carros %}
+                        <tr>
+                            <td>{{carro.make}}</td>
+                            <td>{{carro.model}}</td>
+                            <td>{{carro.year}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </body>
+</html>

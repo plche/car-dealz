@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Car Dealz</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="container-fluid row">
+                <div class="col-8">
+                    <p class="fs-1"></p>
+                </div>
+                <div class="col-4">
+                    <p class="text-end">
+                        <a href="/dashboard" class="btn btn-primary mx-4">Dashboard</a>
+                        <a href="/logout" class="btn btn-secondary mx-2 my-2">Logout</a>
+                    </p>
+                </div>
+            </div>
+            <form action="/new" class="rounded container col-4" method="post">
+                <h1>Put Car Up For Sale</h1>
+                {% with messages = get_flashed_messages(category_filter=["carro"]) %}
+                    {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Flash AHHHHHHH!!!!</strong>
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                <label for="price" class="form-label mt-3">Price:</label>
+                <input type="number" class="form-control" name="price">
+                <label for="model" class="form-label mt-3">Model:</label>
+                <input type="text" class="form-control" name="model">
+                <label for="make" class="form-label mt-3">Make:</label>
+                <input type="text" class="form-control" name="make">
+                <label for="year" class="form-label mt-3">Year:</label>
+                <input type="number" class="form-control" name="year">
+                <label for="description" class="form-label mt-3">Description:</label>
+                <textarea class="form-control mb-3" name="description" rows="3"></textarea>
+                <button type="submit" class="btn btn-primary mx-2 my-2">Add</button>
+            </form>
+        </div>
+    </body>
+</html>

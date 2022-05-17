@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Car Dealz</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="container-fluid row">
+                <div class="col-8">
+                    <p class="fs-1">Welcome to Car Dealz, <a href="/user/{{session["usr_id"]}}">{{ session['nombre'] }} {{ session['apellido'] }}</a></p>
+                </div>
+                <div class="col-4">
+                    <p class="text-end">
+                        <a href="/logout" class="btn btn-secondary mx-2 my-2">Logout</a>
+                    </p>
+                </div>
+            </div>
+            <div class="container-fluid row fs-4 mx-2 my-2">Cars for Sale</div>
+            <div class="container-fluid row">
+                {% with messages = get_flashed_messages(category_filter=["addsubsnew"]) %}
+                    {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Model</th>
+                        <th scope="col">Year</th>
+                        <th scope="col">Seller</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for carro in carros %}
+                        <tr>
+                            <td>{{carro.model}}</td>
+                            <td>{{carro.year}}</td>
+                            <td>{{carro.nombre}} {{carro.apellido}}</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Actions">
+                                    {% if carro.byr_id == None %}
+                                        {% if carro.slr_id != session["usr_id"] %}
+                                            <form class="btn-group" action="/show/{{carro.car_id}}" method="get">
+                                                <button class="btn btn-outline-info btn-sm">View</button>
+                                            </form>
+                                        {% endif %}
+                                        {% if carro.slr_id == session["usr_id"] %}
+                                            <form class="btn-group" action="/edit/{{carro.car_id}}" method="get">
+                                                <button class="btn btn-outline-primary btn-sm">Edit</button>
+                                            </form>
+                                            <form class="btn-group" action="/delete/{{carro.car_id}}" method="post">
+                                                <button class="btn btn-outline-danger btn-sm">Delete</button>
+                                            </form>
+                                        {% endif %}
+                                    {% else %}
+                                        <p>SOLD</p>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+            <div class="container-fluid row">
+                <div class="col-8">
+                </div>
+                <div class="col-4">
+                    <p class="text-end">
+                        <a href="/new" class="btn btn-primary mx-2 my-2">Add a Car</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

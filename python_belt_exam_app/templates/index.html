@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Car Dealz</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container-fluid row">
+            <div class="container col-3 mt-3">
+                <form class="rounded text-white bg-dark p-4" action="/registroUsuario" method="post">
+                    <h2 class="text-primary">Registro</h2>
+                    {% with messages = get_flashed_messages(category_filter=["register"]) %}
+                        {% if messages %}
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Flash AHHHHHHH!!!!</strong>
+                                {% for message in messages: %}
+                                    <p>{{message}}</p>                                    
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                    <label for="nombre" class="form-label">Nombre:</label>
+                    <input type="text" class="form-control" name="nombre" id="nombre">
+                    <label for="apellido" class="form-label mt-3">Apellido:</label>
+                    <input type="text" class="form-control" name="apellido" id="apellido">
+                    <label for="email" class="form-label mt-3">Email:</label>
+                    <input type="text" class="form-control" name="email" id="email">
+                    <label for="password" class="form-label mt-3">Contraseña:</label>
+                    <input type="password" class="form-control" name="password" id="password">
+                    <label for="cpassword" class="form-label mt-3">Confirmar Contraseña:</label>
+                    <input type="password" class="form-control" name="cpassword" id="cpassword">
+                    <button type="submit" class="btn btn-primary mt-3">Registrar</button>
+                </form>
+            </div>
+            <div class="container col-3 mt-3">
+                <form class="rounded text-white bg-dark p-4" action="/login" method="post">
+                    <h2 class="text-success">Login</h2>
+                    {% with messages = get_flashed_messages(category_filter=["login"]) %}
+                        {% if messages %}
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Flash AHHHHHHH!!!!</strong>
+                                {% for message in messages: %}
+                                    <p>{{message}}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                    <label for="loginUsuario" class="form-label">Email:</label>
+                    <input type="text" class="form-control" name="loginUsuario" id="loginUsuario">
+                    <label for="passwordUsuario" class="form-label mt-3">Contraseña:</label>
+                    <input type="password" class="form-control" name="passwordUsuario" id="passwordUsuario">
+                    <button type="submit" class="btn btn-success mt-3">Login</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
